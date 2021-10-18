@@ -1,0 +1,117 @@
+// Detect edges
+void edges(int height, int width, RGBTRIPLE image[height][width])
+{
+	// defining the Gx and Gy matrices
+	int Gx[3][3] = {{-1 , 0 , 1} , {-2 , 0 , 2} ,{ -1 , 0 , 1} };
+
+
+	int Gy[3][3] = { {-1 , -2 , -1} , {0 , 0 , 0} ,{ 1 , 2 , 1}};
+	
+	int red_Xdirection = 0;
+	int blue_Xdirection = 0;
+	int green_Xdirection = 0;
+	
+	
+	int red_Ydirection = 0; 
+	int blue_Ydirection = 0;
+	int green_Ydirection = 0;
+
+	for (int i = 0; i < height ; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			if(i != 0 && i != height - 1 && j != 0 && j != width - 1)
+	        {
+	        	// computing the red color and matrix Gx
+	        	red_Xdirection =     image[i-1][j-1].rgbtRed * Gx[0][0] + image[i-1][j].rgbtRed * Gx[0][1] + image[i-1][j+1].rgbtRed * Gx[0][2] +
+	        						 image[i][j-1].rgbtRed * Gx[1][0] + image[i][j].rgbtRed * Gx[1][1] + image[i][j+1].rgbtRed * Gx[1][2] +
+	        						 image[i+1][j-1].rgbtRed * Gx[2][0] + image[i+1][j].rgbtRed * Gx[2][1] + image[i+1][j+1].rgbtRed * Gx[2][2] ;
+
+
+				// computing the blue color and matrix Gx
+	        	blue_Xdirection =     image[i-1][j-1].rgbtBlue * Gx[0][0] + image[i-1][j].rgbtBlue * Gx[0][1] + image[i-1][j+1].rgbtBlue * Gx[0][2] +
+	        						  image[i][j-1].rgbtBlue * Gx[1][0] + image[i][j].rgbtBlue * Gx[1][1] + image[i][j+1].rgbtBlue * Gx[1][2] +
+	        						  image[i+1][j-1].rgbtBlue * Gx[2][0] + image[i+1][j].rgbtBlue * Gx[2][1] + image[i+1][j+1].rgbtBlue * Gx[2][2] ;
+
+	        	// computing the green green color and matrix Gx
+	        	green_Xdirection =	   image[i-1][j-1].rgbtGreen * Gx[0][0] + image[i-1][j].rgbtGreen * Gx[0][1] + image[i-1][j+1].rgbtGreen * Gx[0][2] +
+	        						   image[i][j-1].rgbtGreen * Gx[1][0] + image[i][j].rgbtGreen * Gx[1][1] + image[i][j+1].rgbtGreen * Gx[1][2] +
+	        						   image[i+1][j-1].rgbtGreen * Gx[2][0] + image[i+1][j].rgbtGreen * Gx[2][1] + image[i+1][j+1].rgbtGreen * Gx[2][2] ;
+
+
+	        }
+		}
+	}
+	
+	
+	
+	for (int i = 0; i < width ; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			if(i != 0 && i != height - 1 && j != 0 && j != width - 1)
+	        {
+	        	// computing the red color and matrix Gx
+	        	red_Ydirection =     image[i-1][j-1].rgbtRed * Gx[0][0] + image[i-1][j].rgbtRed * Gx[0][1] + image[i-1][j+1].rgbtRed * Gx[0][2] +
+	        						 image[i][j-1].rgbtRed * Gx[1][0] + image[i][j].rgbtRed * Gx[1][1] + image[i][j+1].rgbtRed * Gx[1][2] +
+	        						 image[i+1][j-1].rgbtRed * Gx[2][0] + image[i+1][j].rgbtRed * Gx[2][1] + image[i+1][j+1].rgbtRed * Gx[2][2] ;
+
+
+				// computing the blue color and matrix Gx
+	        	blue_Ydirection =     image[i-1][j-1].rgbtBlue * Gx[0][0] + image[i-1][j].rgbtBlue * Gx[0][1] + image[i-1][j+1].rgbtBlue * Gx[0][2] +
+	        						  image[i][j-1].rgbtBlue * Gx[1][0] + image[i][j].rgbtBlue * Gx[1][1] + image[i][j+1].rgbtBlue * Gx[1][2] +
+	        						  image[i+1][j-1].rgbtBlue * Gx[2][0] + image[i+1][j].rgbtBlue * Gx[2][1] + image[i+1][j+1].rgbtBlue * Gx[2][2] ;
+
+	        	// computing the green green color and matrix Gx
+	        	green_Ydirection =	   image[i-1][j-1].rgbtGreen * Gx[0][0] + image[i-1][j].rgbtGreen * Gx[0][1] + image[i-1][j+1].rgbtGreen * Gx[0][2] +
+	        						   image[i][j-1].rgbtGreen * Gx[1][0] + image[i][j].rgbtGreen * Gx[1][1] + image[i][j+1].rgbtGreen * Gx[1][2] +
+	        						   image[i+1][j-1].rgbtGreen * Gx[2][0] + image[i+1][j].rgbtGreen * Gx[2][1] + image[i+1][j+1].rgbtGreen * Gx[2][2] ;
+
+
+	        }
+		}
+	}
+	
+	
+	for (int i = 0; i < height ; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+	
+			int r = sqrt(pow(red_Xdirection,2) + pow(red_Ydirection,2));
+			int b= sqrt(pow(blue_Xdirection,2) + pow(blue_Ydirection,2));
+			int g = sqrt(pow(green_Xdirection,2) + pow(green_Ydirection,2));
+			
+			if (r <= 255 && g <= 255 && b <= 255)
+			{
+			image[i][j].rgbtRed = r;
+			image[i][j].rgbtGreen = g;
+			image[i][j].rgbtBlue = b;
+			}
+			
+			if (r > 255 && g <= 255 && b <= 255)
+			{
+			r = 255;
+			image[i][j].rgbtRed = r;
+			image[i][j].rgbtGreen = g;
+			image[i][j].rgbtBlue = b;
+			}
+			
+			if (g > 255 && r <= 255 && b <= 255)
+			{
+			g = 255;
+			image[i][j].rgbtRed = r;
+			image[i][j].rgbtGreen = g;
+			image[i][j].rgbtBlue = b;
+			}
+
+			if (b > 255 && g <= 255 && r <= 255)
+			{
+			b = 255;
+			image[i][j].rgbtRed = r;
+			image[i][j].rgbtGreen = g;
+			image[i][j].rgbtBlue = b;
+			}
+
+		}
+	}
